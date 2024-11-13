@@ -1,13 +1,13 @@
 import * as tweetRepository from '../data/tweet.js'
 
-// 모든 트윗을 가져오는 함수
+// username이 없으면 모든 트윗, 있으면 username에 해당하는 트윗만
 export async function getTweets(req, res, next) {
     const username = req.query.username
     const data = await (username ? tweetRepository.getAllByUsername(username) : tweetRepository.getAll())
     res.status(200).json(data)
 }
 
-// 하나의 트윗을 가져오는 함수
+// 글번호에 대한 하나의 트윗을 가져오는 함수
 export async function getTweetsById(req, res, next) {
     const id = req.params.id
     const tweet = await tweetRepository.getByID(id)
