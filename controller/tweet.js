@@ -1,4 +1,5 @@
 import * as tweetRepository from '../data/tweet.js'
+import { getSocketIo } from '../connection/socket.js'
 
 // username이 없으면 모든 트윗, 있으면 username에 해당하는 트윗만
 export async function getTweets(req, res, next) {
@@ -23,6 +24,7 @@ export async function createTweets(req, res, next) {
     const { username, name, text } = req.body
     const tweet = await tweetRepository.create(username, name, text)
     res.status(201).json(tweet)
+    getSocketIo().emit('tweets, tweet')
 }
 
 // 트윗 수정하기
